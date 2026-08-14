@@ -4,10 +4,11 @@ import { mkdtempSync, existsSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { spawn } from "node:child_process";
+import { fileURLToPath } from "node:url";
 
 test("Codex hook learns locally and emits no model context", async () => {
   const dataRoot = mkdtempSync(join(tmpdir(), "ltcf-codex-hook-"));
-  const hook = new URL("../src/hook-codex.js", import.meta.url);
+  const hook = fileURLToPath(new URL("../src/hook-codex.js", import.meta.url));
   const payload = JSON.stringify({
     hook_event_name: "UserPromptSubmit",
     prompt: "service=orders status=success service=orders status=success",
@@ -15,7 +16,7 @@ test("Codex hook learns locally and emits no model context", async () => {
   });
 
   const result = await new Promise<{ code: number; stdout: string }>((resolve, reject) => {
-    const child = spawn(process.execPath, [hook.pathname], {
+    const child = spawn(process.execPath, [hook], {
       env: { ...process.env, PLUGIN_DATA: dataRoot },
       stdio: ["pipe", "pipe", "pipe"],
     });
