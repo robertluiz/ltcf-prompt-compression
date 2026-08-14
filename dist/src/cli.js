@@ -5,6 +5,7 @@ import { parseSharedDictionary, renderSharedBootstrap, serializeSharedDictionary
 import { transformPrompt } from "./transform.js";
 import { runHarness } from "./adapters/process.js";
 import { exportCurrentDictionary, observePrompt } from "./state.js";
+import { disableLifecycle, enableLifecycle, formatLifecycleStatus, installLifecycle, isLifecycleEnabled, lifecycleStatus, uninstallLifecycle, } from "./lifecycle.js";
 async function main() {
     const [command, ...args] = process.argv.slice(2);
     switch (command) {
@@ -15,6 +16,11 @@ async function main() {
         case "export": return exportCommand(args);
         case "run": return runCommand(args);
         case "benchmark": return benchmarkCommand(args);
+        case "install": return lifecycleCommand("install", args);
+        case "enable": return lifecycleCommand("enable", args);
+        case "disable": return lifecycleCommand("disable", args);
+        case "status": return lifecycleCommand("status", args);
+        case "uninstall": return lifecycleCommand("uninstall", args);
         default:
             printUsage();
             process.exitCode = command ? 2 : 0;
@@ -86,9 +92,32 @@ async function runCommand(args) {
         transport,
         sharedDictionary: dictionary,
         sessionMode,
+        enabled: isLifecycleEnabled(),
     });
     process.stderr.write(`${JSON.stringify(summary(result.transform))}\n`);
     process.exitCode = result.exitCode;
+}
+function lifecycleCommand(command, args) {
+    const skipCodex = args.includes("--no-codex");
+    let status;
+    switch (command) {
+        case "install":
+            status = installLifecycle({ skipCodex });
+            break;
+        case "enable":
+            status = enableLifecycle();
+            break;
+        case "disable":
+            status = disableLifecycle();
+            break;
+        case "uninstall":
+            status = uninstallLifecycle({ skipCodex, purge: args.includes("--purge") });
+            break;
+        case "status":
+            status = lifecycleStatus();
+            break;
+    }
+    process.stdout.write(args.includes("--json") ? JSON.stringify(status, null, 2) + "\n" : formatLifecycleStatus(status));
 }
 function benchmarkCommand(args) {
     const inputPath = valueAfter(args, "--input");
@@ -133,7 +162,12 @@ function printUsage() {
         `  ltcf observe [--state file] [--input file]\n` +
         `  ltcf export [--state file] [--output dictionary.json]\n` +
         `  ltcf benchmark --input file [--dictionary file]\n` +
-        `  ltcf run [--input file] [--dictionary file --session] [--argument] -- <command> [args...]\n`);
+        `  ltcf run [--input file] [--dictionary file --session] [--argument] -- <command> [args...]\n` +
+        `  ltcf install [--no-codex] [--json]\n` +
+        `  ltcf enable [--json]\n` +
+        `  ltcf disable [--json]\n` +
+        `  ltcf status [--json]\n` +
+        `  ltcf uninstall [--purge] [--no-codex] [--json]\n`);
 }
 main().catch((error) => {
     console.error(error instanceof Error ? error.stack ?? error.message : String(error));

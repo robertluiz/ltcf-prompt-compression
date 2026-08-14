@@ -1,6 +1,6 @@
 {
   "name": "ltcf-prompt-compression",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "description": "Harness-agnostic lossless prompt compression using adaptive token indexes and persistent shared dictionaries.",
   "license": "MIT",

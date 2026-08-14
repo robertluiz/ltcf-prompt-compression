@@ -2,6 +2,38 @@
 
 LTCF supports Codex in two separate ways because current hook semantics and prompt replacement are different concerns.
 
+## Install and lifecycle
+
+```bash
+npm install --global github:robertluiz/ltcf-prompt-compression
+ltcf install
+ltcf status
+```
+
+`ltcf install` registers `robertluiz/ltcf-prompt-compression` as a Codex marketplace and enables LTCF. Codex currently exposes marketplace registration, while plugin selection remains in Codex's plugin surface. Install the offered LTCF plugin there to activate learning.
+
+Temporarily bypass both the learning hook and the prompt-replacement wrapper without deleting data:
+
+```bash
+ltcf disable
+ltcf enable
+```
+
+Remove the marketplace registration while preserving learned data:
+
+```bash
+ltcf uninstall
+```
+
+Remove LTCF-managed state and dictionaries too:
+
+```bash
+ltcf uninstall --purge
+npm uninstall --global ltcf-prompt-compression
+```
+
+The lifecycle state uses `LTCF_HOME` when provided, otherwise `~/.ltcf`. Every lifecycle command is idempotent and supports `--json`; `install` and `uninstall` support `--no-codex` for harness-only use.
+
 ## 1. Plugin hook: learning
 
 `hooks/hooks.json` registers `UserPromptSubmit` and runs `dist/src/hook-codex.js`.

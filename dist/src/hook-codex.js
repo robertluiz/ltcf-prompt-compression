@@ -1,7 +1,10 @@
 import { mkdirSync } from "node:fs";
 import { join } from "node:path";
 import { observePrompt } from "./state.js";
+import { isLifecycleEnabled } from "./lifecycle.js";
 async function main() {
+    if (!isLifecycleEnabled())
+        return;
     const input = await readStdin();
     if (!input.trim())
         return;

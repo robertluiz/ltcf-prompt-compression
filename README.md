@@ -88,12 +88,39 @@ console.log(restored === text); // true
 
 This guarantees the **format/decoder**, not an LLM's probabilistic ability to follow the expansion instruction. Model-level exact-match accuracy must be benchmarked separately for each target model.
 
-## Install and test
+## Install, control and remove
 
 Requirements:
 
 - Node.js 22+
 - TypeScript 5.8+ for source builds
+
+Install directly from GitHub and register the LTCF marketplace in Codex:
+
+```bash
+npm install --global github:robertluiz/ltcf-prompt-compression
+ltcf install
+```
+
+Control LTCF with one command:
+
+```bash
+ltcf status
+ltcf disable
+ltcf enable
+ltcf uninstall
+```
+
+`disable` immediately makes the Codex learning hook and `ltcf run` pass prompts through unchanged. It preserves dictionaries and learning data. `uninstall` removes the Codex marketplace registration but also preserves data by default. To remove LTCF-managed data too:
+
+```bash
+ltcf uninstall --purge
+npm uninstall --global ltcf-prompt-compression
+```
+
+Use `--no-codex` with `install` or `uninstall` for another harness. The lifecycle state lives in `LTCF_HOME` when set, otherwise in `~/.ltcf`. Codex currently exposes marketplace registration through its CLI; install the offered LTCF plugin from Codex's plugin surface to activate its learning hook. Prompt replacement works through `ltcf run` and is harness-agnostic.
+
+For a source checkout:
 
 ```bash
 npm install

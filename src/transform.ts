@@ -15,6 +15,7 @@ export interface TransformOptions {
   sharedDictionary?: SharedDictionary;
   sessionMode?: boolean;
   minimumSavingTokens?: number;
+  enabled?: boolean;
 }
 
 export interface PromptTransformResult {
@@ -46,6 +47,10 @@ export function transformPrompt(
   const codec = new TokenCodec(shared?.encoding ?? "o200k_base");
   const originalTokens = codec.count(original);
   const checksumSha256 = createHash("sha256").update(original, "utf8").digest("hex");
+
+  if (options.enabled === false) {
+    return originalResult(original, originalTokens, checksumSha256);
+  }
 
   if (shared && options.sessionMode) {
     const base = applySharedDictionary(original, shared);
@@ -113,6 +118,10 @@ export function transformPrompt(
     });
   }
 
+  return originalResult(original, originalTokens, checksumSha256);
+}
+
+function originalResult(original: string, originalTokens: number, checksumSha256: string): PromptTransformResult {
   return result({
     original,
     prompt: original,

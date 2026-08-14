@@ -12,6 +12,9 @@ export function transformPrompt(original, options = {}) {
     const codec = new TokenCodec(shared?.encoding ?? "o200k_base");
     const originalTokens = codec.count(original);
     const checksumSha256 = createHash("sha256").update(original, "utf8").digest("hex");
+    if (options.enabled === false) {
+        return originalResult(original, originalTokens, checksumSha256);
+    }
     if (shared && options.sessionMode) {
         const base = applySharedDictionary(original, shared);
         const optimized = optimizeCompression(base.body, profile, {
@@ -74,6 +77,9 @@ export function transformPrompt(original, options = {}) {
             },
         });
     }
+    return originalResult(original, originalTokens, checksumSha256);
+}
+function originalResult(original, originalTokens, checksumSha256) {
     return result({
         original,
         prompt: original,

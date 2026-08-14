@@ -5,6 +5,7 @@ export interface TransformOptions {
     sharedDictionary?: SharedDictionary;
     sessionMode?: boolean;
     minimumSavingTokens?: number;
+    enabled?: boolean;
 }
 export interface PromptTransformResult {
     original: string;

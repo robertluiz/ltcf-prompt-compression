@@ -12,6 +12,7 @@ declare module "node:fs" {
   export function mkdirSync(...args: any[]): any;
   export function renameSync(...args: any[]): any;
   export function mkdtempSync(...args: any[]): any;
+  export function rmSync(...args: any[]): any;
 }
 declare module "node:path" {
   export function resolve(...args: any[]): string;
@@ -19,9 +20,10 @@ declare module "node:path" {
   export function join(...args: any[]): string;
 }
 declare module "node:url" { export function fileURLToPath(...args: any[]): string; }
-declare module "node:os" { export function tmpdir(): string; }
+declare module "node:os" { export function tmpdir(): string; export function homedir(): string; }
 declare module "node:child_process" {
   export function spawn(...args: any[]): any;
+  export function spawnSync(...args: any[]): any;
 }
 declare module "node:test" { const test: any; export default test; }
 declare module "node:assert/strict" { const assert: any; export default assert; }

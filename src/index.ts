@@ -16,6 +16,15 @@ export { transformPrompt, renderModelRequestOnly } from "./transform.js";
 export { invokeWithCompression } from "./adapters/generic.js";
 export { runHarness } from "./adapters/process.js";
 export { transformOpenAICompatibleRequest } from "./adapters/openai-compatible.js";
+export {
+  installLifecycle,
+  enableLifecycle,
+  disableLifecycle,
+  uninstallLifecycle,
+  lifecycleStatus,
+  isLifecycleEnabled,
+  formatLifecycleStatus,
+} from "./lifecycle.js";
 export type { AliasIndexEntry } from "./aliases.js";
 export type {
   CompressedDocument,
@@ -32,3 +41,4 @@ export type { TransformOptions, PromptTransformResult } from "./transform.js";
 export type { GenericHarnessInvocation } from "./adapters/generic.js";
 export type { ProcessAdapterOptions, ProcessRunResult } from "./adapters/process.js";
 export type { OpenAICompatibleTransform } from "./adapters/openai-compatible.js";
+export type { LifecycleOptions, LifecycleStatus, CodexMarketplace } from "./lifecycle.js";
