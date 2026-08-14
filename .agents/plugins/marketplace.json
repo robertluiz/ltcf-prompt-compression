@@ -5,11 +5,11 @@
       "name": "ltcf-prompt-compression",
       "source": {
         "source": "local",
-        "path": "../../"
+        "path": "./"
       },
       "policy": {
         "installation": "AVAILABLE",
-        "authentication": "ON_DEMAND",
+        "authentication": "ON_INSTALL",
         "products": [
           "CODEX"
         ]
