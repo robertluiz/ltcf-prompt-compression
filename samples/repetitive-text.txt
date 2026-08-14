@@ -1,0 +1,9 @@
+A aplicação utiliza React Native com TypeScript para construir a interface móvel. O serviço utiliza NestJS com TypeScript para expor a API REST. A aplicação móvel chama a API REST e recebe respostas em JSON.
+
+A aplicação utiliza React Native com TypeScript para construir a interface móvel. O serviço utiliza NestJS com TypeScript para expor a API REST. A aplicação móvel chama a API REST e recebe respostas em JSON.
+
+A aplicação utiliza React Native com TypeScript para construir a interface móvel. O serviço utiliza NestJS com TypeScript para expor a API REST. A aplicação móvel chama a API REST e recebe respostas em JSON.
+
+A aplicação utiliza React Native com TypeScript para construir a interface móvel. O serviço utiliza NestJS com TypeScript para expor a API REST. A aplicação móvel chama a API REST e recebe respostas em JSON.
+
+A aplicação utiliza React Native com TypeScript para construir a interface móvel. O serviço utiliza NestJS com TypeScript para expor a API REST. A aplicação móvel chama a API REST e recebe respostas em JSON.

@@ -1,0 +1,69 @@
+{
+  "name": "ltcf-prompt-compression",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Harness-agnostic lossless prompt compression using adaptive token indexes and persistent shared dictionaries.",
+  "license": "MIT",
+  "author": "Robert Luiz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robertluiz/ltcf-prompt-compression.git"
+  },
+  "keywords": [
+    "llm",
+    "prompt-compression",
+    "token",
+    "codex",
+    "claude-code",
+    "gemini-cli",
+    "agent-harness",
+    "lossless"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "ltcf": "./dist/src/cli.js"
+  },
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js"
+    },
+    "./adapters/process": {
+      "types": "./dist/src/adapters/process.d.ts",
+      "import": "./dist/src/adapters/process.js"
+    },
+    "./adapters/openai-compatible": {
+      "types": "./dist/src/adapters/openai-compatible.d.ts",
+      "import": "./dist/src/adapters/openai-compatible.js"
+    },
+    "./adapters/generic": {
+      "types": "./dist/src/adapters/generic.d.ts",
+      "import": "./dist/src/adapters/generic.js"
+    }
+  },
+  "files": [
+    "dist/src",
+    "assets",
+    ".codex-plugin",
+    "hooks",
+    "skills",
+    ".agents",
+    "docs",
+    "README.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test dist/test/*.test.js",
+    "benchmark": "npm run build && node dist/src/cli.js benchmark",
+    "prepare": "npm run build"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.0"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "ltcf-prompt-compression",
+  "plugins": [
+    {
+      "name": "ltcf-prompt-compression",
+      "source": {
+        "source": "local",
+        "path": "../../"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_DEMAND",
+        "products": [
+          "CODEX"
+        ]
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

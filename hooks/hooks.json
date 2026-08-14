@@ -1,0 +1,16 @@
+{
+  "description": "Learn repeated prompt patterns without appending duplicate model context.",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${PLUGIN_ROOT}/dist/src/hook-codex.js\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
